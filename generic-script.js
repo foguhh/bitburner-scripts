@@ -1,6 +1,6 @@
 /** @param {NS} ns **/
 export async function main(ns) {
-var target = "omega-net";
+var target = "nectar-net";
 var moneyThresh = ns.getServerMaxMoney(target) * 0.75;
 var securityThresh = ns.getServerMinSecurityLevel(target) + 5;
 

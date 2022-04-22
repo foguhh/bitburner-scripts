@@ -1,7 +1,7 @@
 /** @param {NS} ns **/
 export async function main(ns) {
 var myServers = ns.getPurchasedServers()
-var servers0Port = ["foodnstuff","sigma-cosmetics","joesguns","hong-fang-tea","harakiri-sushi","nectar-net"]
+var servers0Port = ["n00dles","foodnstuff","sigma-cosmetics","joesguns","hong-fang-tea","harakiri-sushi","nectar-net"]
 var servers1Port = ["CSEC","neo-net","zer0","max-hardware","iron-gym"]
 var servers2Port = ["silver-helix","the-hub","omega-net","avmnite-02h","phantasy"]
 var activeScript = "generic-script.js"
