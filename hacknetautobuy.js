@@ -71,13 +71,14 @@ function check_cheapest() {
 
     while (myMoney() < cheapest) {
         ns.print("Waiting for funds to increase")
-        await ns.sleep(3000);
+        
     }
     
     purchase(node, item, qty);
 }
 
 while(true) {
-	check_cheapest()
+	check_cheapest();
+    await ns.sleep(3000);
 }
 }
