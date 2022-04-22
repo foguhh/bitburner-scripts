@@ -1,0 +1,6 @@
+var servers = getPurchasedServers()
+
+for (var i = 0 ; i < servers.length; i++) {
+	scp("genericscript.script", servers[i]);
+	exec("genericscript.script", servers[i], 3);
+}

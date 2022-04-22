@@ -1,0 +1,92 @@
+//  Create Function to Return Balance
+function myMoney() {
+    return getServerMoneyAvailable("home");
+}
+
+//  Disable Logging for the Following Commands Below (We Dont Want To See Them While we Wait for Our Balance to Grow)
+disableLog("getServerMoneyAvailable");
+disableLog("sleep");
+
+//  Create Function to Purchase Upgrade Based on 3 Flags for Node, Item, Qty 
+//  # Note Qty is not utilised but the Framework is in Place to Future Proof
+function purchase(node, item, qty){
+    var node = node, item = item, qty = qty;
+    
+    if (item == "New Node"){
+        hacknet.purchaseNode();
+        print("Purchasing New Node")
+    }
+    if (item == "LVL"){
+        hacknet.upgradeLevel(node , qty)
+        print("Purchasing LVL Upgrade for Node: " + node)
+    }
+    if (item == "RAM"){
+        hacknet.upgradeRam(node , qty)
+        print("Purchasing RAM Upgrade for Node: " + node)
+    }
+    if (item == "CPU"){
+        hacknet.upgradeCore(node , qty)
+        print("Purchasing CPU Upgrade for Node: " + node)
+    }
+}
+
+//  Create Function to Find the Cheapest Upgrade and Set Flags to be Used by the Purchase Function
+//  We will set the Default Flags to Purchase a New Node, Only to be Overwritten if a Cheaper Option is Available
+function check_cheapest() {
+    var new_node_cost = hacknet.getPurchaseNodeCost();
+    var node = "Default";
+    var item = "New Node";
+    var qty = 1;
+    var cheapest = new_node_cost;
+    var node_qty = hacknet.numNodes();
+    
+    //  Iterate Through all Node Upgrade Options, Overwrite Flags if Cheaper Upgrade is Found
+    for (var i = 0; i < node_qty; i++) {
+        var node_lvl = hacknet.getLevelUpgradeCost(i, 1);
+        var node_ram = hacknet.getRamUpgradeCost(i, 1);
+        var node_cpu = hacknet.getCoreUpgradeCost(i, 1);
+
+        if (node_lvl < cheapest) {
+               cheapest = node_lvl;
+               node = i;
+               item = "LVL";
+        }
+        if (node_ram < cheapest) {
+              cheapest = node_ram;
+               node = i;
+               item = "RAM";
+        }
+        if (node_cpu < cheapest) {
+               cheapest = node_cpu;
+               node = i;
+               item = "CPU";
+        }
+}
+
+    //  I am not a JavaScript Programmer so I am not Adept at String Manipulation in this Language
+    //  Print a Summary Log of Cheapest Upgrade Found
+    print("")
+    print("Cheapest Hacknet Upgrade Available;")
+    print("Node             : " + node);
+    print("Item             : " + item);
+    print("Qty              : " + qty);
+    print("")
+    print("Current Balance  : $" + myMoney());
+    print("Upgrade Cost     : $" + cheapest);
+    print("")
+
+    //  After Determining the Cheapest Upgrade we will wait for Balance to Increase Enough to Purchase (This is why we turned off logging)
+    // DEFAULT SLEEP 3000
+    while (myMoney() < cheapest) {
+        print("Waiting for funds to increase")
+        sleep(3000);
+    }
+    
+    //  Call the Purchase Function
+    purchase(node, item, qty);
+}
+
+//  Run the Cheapest Upgrade Function in an Infinite Loop
+while(true) {
+	check_cheapest()
+}

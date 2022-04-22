@@ -1,0 +1,13 @@
+var servers = scan("CSEC")
+var activeScript = "genericscript.script"
+
+for (var i = 0 ; i < servers.length; i++) {
+	scp(activeScript, servers[i]);
+		if (getServerMaxRam(servers[i]) <= 8){
+			exec(activeScript, servers[i], 3);
+		} else if (getServerMaxRam(servers[i]) <= 16) {
+			exec(activeScript, servers [i], 6);
+		} else {
+			exec(activeScript, servers [i], 12);
+		}
+}
