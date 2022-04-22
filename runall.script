@@ -1,0 +1,71 @@
+var myServers = getPurchasedServers()
+var servers0Port = ["foodnstuff","sigma-cosmetics","joesguns","hong-fang-tea","harakiri-sushi","nectar-net"]
+var servers1Port = ["CSEC","neo-net","zer0","max-hardware","iron-gym"]
+var servers2Port = ["silver-helix","the-hub","omega-net","avmnite-02h","phantasy"]
+var activeScript = "genericscript.script"
+
+// Purchased Servers
+
+for (var i = 0 ; i < myServers.length; i++) {
+	scp("genericscript.script", myServers[i]);
+	exec("genericscript.script", myServers[i], 3);
+}
+
+// 0 ports
+for (var i = 0 ; i < servers0Port.length; i++) {
+	scp(activeScript, servers0Port[i]);
+	nuke(servers0Port[i]);
+		if (getServerMaxRam(servers0Port[i]) <= 8){
+			exec(activeScript, servers0Port[i], 3);
+		} else if (getServerMaxRam(servers0Port[i]) <= 16) {
+			exec(activeScript, servers0Port [i], 6);
+		} else if (getServerMaxRam(servers0Port[i]) <= 32){
+			exec(activeScript, servers0Port [i], 12);
+		} else {
+			exec(activeScript, servers0Port [i], 24);
+		}
+}
+
+// 1 port
+for (var i = 0 ; i < servers1Port.length; i++) {
+	scp(activeScript, servers1Port[i]);
+	
+	if (fileExists("BruteSSH.exe","home")){
+		brutessh(servers1Port[i]);
+	}
+	
+	nuke(servers1Port[i]);
+		if (getServerMaxRam(servers1Port[i]) <= 8){
+			exec(activeScript, servers1Port[i], 3);
+		} else if (getServerMaxRam(servers1Port[i]) <= 16) {
+			exec(activeScript, servers1Port [i], 6);
+		} else if (getServerMaxRam(servers1Port[i]) <= 32){
+			exec(activeScript, servers1Port [i], 12);
+		} else {
+			exec(activeScript, servers1Port [i], 24);
+		}
+}
+
+for (var i = 0 ; i < servers2Port.length; i++) {
+	scp(activeScript, servers2Port[i]);
+	
+	if (fileExists("BruteSSH.exe","home")){
+		brutessh(servers2Port[i]);
+	}
+
+	if (fileExists("FTPCrack.exe","home")){
+		ftpcrack(servers2Port[i]);
+	}
+	
+	nuke(servers2Port[i]);
+		
+		if (getServerMaxRam(servers2Port[i]) <= 8){
+			exec(activeScript, servers2Port[i], 3);
+		} else if (getServerMaxRam(servers2Port[i]) <= 16) {
+			exec(activeScript, servers2Port [i], 6);
+		} else if (getServerMaxRam(servers2Port[i]) <= 32){
+			exec(activeScript, servers2Port [i], 12);
+		} else {
+			exec(activeScript, servers2Port [i], 24);
+		}
+}

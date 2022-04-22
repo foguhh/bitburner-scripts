@@ -1,13 +1,7 @@
-var target = "silver-helix";
+var target = "omega-net";
 var moneyThresh = getServerMaxMoney(target) * 0.75;
 var securityThresh = getServerMinSecurityLevel(target) + 5;
 
-
-if (fileExists("BruteSSH.exe", "home")) {
-    brutessh(target);
-}
-
-nuke(target);
 
 while(true) {
     if (getServerSecurityLevel(target) > securityThresh) {
