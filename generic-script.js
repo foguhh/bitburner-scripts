@@ -1,6 +1,6 @@
 /** @param {NS} ns **/
 export async function main(ns) {
-var target = "silver-helix";
+var target = "the-hub";
 var moneyThresh = ns.getServerMaxMoney(target) * 0.75;
 var securityThresh = ns.getServerMinSecurityLevel(target) + 5;
 
